@@ -6,7 +6,7 @@ import {getWord, checkWord} from './word-list.js'
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let word, currentRow, currentLetter
+let secretWord, guessedWord, currentRow, currentLetter
 
 
 /*------------------------ Cached Element References ------------------------*/
@@ -27,13 +27,15 @@ diffEl.addEventListener('click', (evt) => {
 
 inputKeys.addEventListener('click', (evt) => {
   if (evt.target.id === 'del') {
-    handleDeleteLetter(evt.target.id)
-  } else if (evt.target.id === 'enter') {
+    if (currentLetter > 0) {
+      handleDeleteLetter(evt.target.id)
+    }
+  } else if (evt.target.id === 'enter' && currentLetter === 5) {
     handleGuessWord()
   } else if (evt.target.id === 'reset') {
     init()
-  } else {
-    handleSelectLetter(evt.target.id)
+  } else if (currentLetter < 5 && evt.target.id.length === 1){
+    renderLetter(evt.target.id)
   }
 })
 
@@ -50,6 +52,7 @@ function init() {
   title.setAttribute('hidden', true)
   currentRow = 0
   currentLetter = 0
+  guessedWord = []
   render()
 }
 
@@ -58,48 +61,70 @@ function selectDifficulty(level) {
   keyEl.removeAttribute('hidden')
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
-  word = getWord(level)
-  console.log(word)
+  secretWord = getWord(level).toUpperCase().split('')
+  console.log(secretWord)
 }
 
 function handleDeleteLetter(letter) {
   console.log(letter + ' deleted')
+  guessedWord.pop()
   currentLetter -= 1
   wordRows[currentRow].children[currentLetter].textContent = ''
-
-  // If current guess.length
-    // remove last character
-    // render letter
 }
 
 function handleGuessWord() {
   console.log('guess word')
-  // if current guess length is 5
-  // check word for match
-  // check if word exists
-  // renderWord()
+  let wordToCheck = guessedWord.join('').toLowerCase()
+  console.log(wordToCheck)
+  if (checkWord(wordToCheck)) {
+    console.log('word exists')
+    renderGuess()
+    guessedWord = []
+  } else {
+    // shake animation
+    console.log('word does not exist')
+  }
 }
 
-function handleSelectLetter(letter) {
+function renderLetter(letter) {
   console.log(letter + ' pressed')
   wordRows[currentRow].children[currentLetter].textContent = letter.toUpperCase()
+  guessedWord.push(letter.toUpperCase())
   currentLetter += 1
+  console.log(guessedWord)
   // If current guess.length < 5
     // add character to current word
     // renderLetter()
 }
 
-
-function renderLetter(letter) {
-  console.log(letter + ' to be rendered')
-  // Change textContent of element to letter
-}
-
-function renderWord() {
-  // Flip the letters and add styling based on status
-    // Letter is in the correct position (right-place)
-    // Letter is in the wrong position (wrong-place)
-    // Letter is not in the word (wrong-letter)
+function renderGuess() {
+  console.log(guessedWord)
+  let lettersRemaining = [...secretWord]
+  let flipTimeout = 750
+  guessedWord.forEach((letter, idx) => {
+    let guessEl = wordRows[currentRow].children[idx]
+    if (secretWord[idx] === guessedWord[idx]) {
+      setTimeout(()=> {
+        guessEl.classList.add('right-place', 'animate__animated', 'animate__flipInY')
+      }, flipTimeout * idx)
+      lettersRemaining[idx] = null      
+    } 
+  })
+  console.log(lettersRemaining)
+  guessedWord.forEach((letter, idx) => {
+    let guessEl = wordRows[currentRow].children[idx]
+    if (lettersRemaining.includes(guessedWord[idx])) {
+      setTimeout(()=> {
+        guessEl.classList.add('wrong-place', 'animate__animated', 'animate__flipInY')
+      }, flipTimeout * idx)
+    } else {
+      setTimeout(()=> {
+        guessEl.classList.add('wrong-letter', 'animate__animated', 'animate__flipInY')
+      }, flipTimeout * idx)
+    } 
+  })
+  currentRow += 1
+  currentLetter = 0
 }
 
 function render() {
@@ -110,6 +135,7 @@ function resetTiles() {
   wordRows.forEach((row, idx) => {
     for (let i = 0; i < 5; i ++) {
       row.children[i].textContent = ''
+      row.children[i].className = ''
     }
   })
 }
