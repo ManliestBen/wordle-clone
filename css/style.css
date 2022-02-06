@@ -74,11 +74,12 @@ section#keys > div #reset {
 }
 
 section#difficulty > button {
-  background-color: #828384;
+  background-color: cornflowerblue;
+  padding: 0 1em;
   color: white;
   border: 0;
   border-radius: 10%;
-  margin: .10em;
+  margin: .15em;
   font-size: 1.9vw;
   height: 3em;
 }
