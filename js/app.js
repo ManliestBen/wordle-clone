@@ -6,7 +6,7 @@ import {getWord, checkWord} from './word-list.js'
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let word, currentRow
+let word, currentRow, currentLetter
 
 
 /*------------------------ Cached Element References ------------------------*/
@@ -27,25 +27,29 @@ diffEl.addEventListener('click', (evt) => {
 
 inputKeys.addEventListener('click', (evt) => {
   if (evt.target.id === 'del') {
-    handleDeleteLetter()
+    handleDeleteLetter(evt.target.id)
   } else if (evt.target.id === 'enter') {
     handleGuessWord()
+  } else if (evt.target.id === 'reset') {
+    init()
   } else {
     handleSelectLetter(evt.target.id)
   }
 })
 
-resetBtn.addEventListener('click', init)
 
 /*-------------------------------- Functions --------------------------------*/
 
 init()
 
 function init() {
+  resetTiles()
   diffEl.removeAttribute('hidden')
   keyEl.setAttribute('hidden', true)
   gameEl.setAttribute('hidden', true)
   title.setAttribute('hidden', true)
+  currentRow = 0
+  currentLetter = 0
   render()
 }
 
@@ -55,10 +59,14 @@ function selectDifficulty(level) {
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
   word = getWord(level)
+  console.log(word)
 }
 
-function handleDeleteLetter() {
-  console.log('delete')
+function handleDeleteLetter(letter) {
+  console.log(letter + ' deleted')
+  currentLetter -= 1
+  wordRows[currentRow].children[currentLetter].textContent = ''
+
   // If current guess.length
     // remove last character
     // render letter
@@ -74,6 +82,8 @@ function handleGuessWord() {
 
 function handleSelectLetter(letter) {
   console.log(letter + ' pressed')
+  wordRows[currentRow].children[currentLetter].textContent = letter.toUpperCase()
+  currentLetter += 1
   // If current guess.length < 5
     // add character to current word
     // renderLetter()
@@ -90,4 +100,16 @@ function renderWord() {
     // Letter is in the correct position (right-place)
     // Letter is in the wrong position (wrong-place)
     // Letter is not in the word (wrong-letter)
+}
+
+function render() {
+
+}
+
+function resetTiles() {
+  wordRows.forEach((row, idx) => {
+    for (let i = 0; i < 5; i ++) {
+      row.children[i].textContent = ''
+    }
+  })
 }
