@@ -73,13 +73,13 @@ section#keys > div #reset {
   background-color: lightcoral;
 }
 
-section#difficulty > button {
+section#difficulty > div > button {
   background-color: cornflowerblue;
   padding: 0 1em;
   color: white;
   border: 0;
   border-radius: 10%;
-  margin: .15em;
+  margin: .2em;
   font-size: 1.9vw;
   height: 3em;
 }
@@ -88,3 +88,8 @@ section > h2 {
   text-align: center;
 }
 
+#button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

@@ -2,7 +2,7 @@ import {getWord, checkWord} from './word-list.js'
 
 
 /*-------------------------------- Constants --------------------------------*/
-
+const allowableLetters = "abcdefghijklmnopqrstuvwxyz"
 
 
 /*---------------------------- Variables (state) ----------------------------*/
@@ -16,7 +16,7 @@ const diffEl = document.querySelector('section#difficulty')
 const gameEl = document.querySelector('main')
 const keyEl = document.querySelector('section#keys')
 const titleEl = document.getElementById('title')
-const resetBtn = document.getElementById('reset')
+const messageEl = document.getElementById('message')
 
 /*----------------------------- Event Listeners -----------------------------*/
 diffEl.addEventListener('click', (evt) => {
@@ -39,6 +39,18 @@ inputKeys.addEventListener('click', (evt) => {
   }
 })
 
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Backspace') {
+    if (currentLetter > 0) {
+      handleDeleteLetter()
+    }
+  } else if (evt.key === 'Enter' && currentLetter === 5) {
+    handleGuessWord()
+  } else if (currentLetter < 5 && allowableLetters.includes(evt.key)){
+    renderLetter(evt.key)
+  }
+})
+
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -50,13 +62,14 @@ function init() {
   keyEl.setAttribute('hidden', true)
   gameEl.setAttribute('hidden', true)
   title.setAttribute('hidden', true)
+  messageEl.textContent = 'Pick a difficulty:'
   currentRow = 0
   currentLetter = 0
   guessedWord = []
-  render()
 }
 
 function selectDifficulty(level) {
+  init()
   diffEl.setAttribute('hidden', true)
   keyEl.removeAttribute('hidden')
   gameEl.removeAttribute('hidden')
@@ -65,8 +78,7 @@ function selectDifficulty(level) {
   console.log(secretWord)
 }
 
-function handleDeleteLetter(letter) {
-  console.log(letter + ' deleted')
+function handleDeleteLetter() {
   guessedWord.pop()
   currentLetter -= 1
   wordRows[currentRow].children[currentLetter].textContent = ''
@@ -81,7 +93,10 @@ function handleGuessWord() {
     renderGuess()
     guessedWord = []
   } else {
-    // shake animation
+    wordRows[currentRow].classList.remove('animate__animated', 'animate__shakeX')
+    setTimeout (() => {
+      wordRows[currentRow].classList.add('animate__animated', 'animate__shakeX')
+    }, 300)
     console.log('word does not exist')
   }
 }
@@ -92,9 +107,6 @@ function renderLetter(letter) {
   guessedWord.push(letter.toUpperCase())
   currentLetter += 1
   console.log(guessedWord)
-  // If current guess.length < 5
-    // add character to current word
-    // renderLetter()
 }
 
 function renderGuess() {
@@ -123,12 +135,20 @@ function renderGuess() {
       }, flipTimeout * idx)
     } 
   })
-  currentRow += 1
-  currentLetter = 0
+  if (lettersRemaining.every(val => val === null)) {
+    renderWin(currentRow + 1)
+  } else {
+    currentRow += 1
+    currentLetter = 0
+  }
 }
 
-function render() {
-
+function renderWin(numTries) {
+  setTimeout(() => {
+    diffEl.removeAttribute('hidden')
+    messageEl.textContent = `You got it in ${numTries}!  Play again?`
+    title.setAttribute('hidden', true)
+  }, (6*725))
 }
 
 function resetTiles() {
