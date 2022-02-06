@@ -9,45 +9,53 @@
   <title>Wordle Clone</title>
 </head>
 <body>
-  <h2>WORDLE</h2>
-
+  <h2 id="title">WORDLE</h2>
+  <section id="difficulty">
+    <h2>WORDLE</h2>
+    <h2>Pick a difficulty:</h2>
+    <button id="lvl1">Simple</button>
+    <button id="lvl2">Easy</button>
+    <button id="lvl3">Medium</button>
+    <button id="lvl4">Hard</button>
+    <button id="lvl5">Not Fun</button>
+  </section>
   <main>
-    <div class="row">
+    <div class="row word">
       <div class="wrong-letter">D</div>
       <div>E</div>
       <div class="wrong-place">R</div>
       <div>P</div>
       <div class="right-place">Y</div>
     </div>
-    <div class="row">
+    <div class="row word">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <div class="row">
+    <div class="row word">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <div class="row">
+    <div class="row word">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <div class="row">
+    <div class="row word">
       <div></div>
       <div></div>
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <div class="row">
+    <div class="row word">
       <div></div>
       <div></div>
       <div></div>
@@ -55,7 +63,7 @@
       <div></div>
     </div>
   </main>
-  <section>
+  <section id="keys">
     <div class="row keys">
       <button id='q'>Q</button>
       <button id='w'>W</button>
@@ -89,6 +97,9 @@
       <button id='n'>N</button>
       <button id='m'>M</button>
       <button id='del'>DEL</button>
+    </div>
+    <div class="row keys">
+      <button id="reset">RESET</button>
     </div>
   </section>
 </body>

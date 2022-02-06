@@ -47,7 +47,7 @@ div.row {
   border-color: #538d4e;
 }
 
-button {
+section#keys > div > button {
   font-size: 1.75vw;
   font-weight: bold;
   width: 2.5em;
@@ -59,10 +59,31 @@ button {
   margin: .15em;
 }
 
-#enter {
+section#keys > div #enter {
   width: 6em;
 }
 
-#del {
+section#keys > div #del {
   width: 5em;
 }
+
+section#keys > div #reset {
+  width: 10em;
+  margin-top: 2em;
+  background-color: darkred;
+}
+
+section#difficulty > button {
+  background-color: #828384;
+  color: white;
+  border: 0;
+  border-radius: 10%;
+  margin: .10em;
+  font-size: 1.9vw;
+  height: 3em;
+}
+
+section > h2 {
+  text-align: center;
+}
+
