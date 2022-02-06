@@ -75,7 +75,6 @@ function selectDifficulty(level) {
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
   secretWord = getWord(level).toUpperCase().split('')
-  console.log(secretWord)
 }
 
 function handleDeleteLetter() {
@@ -85,11 +84,8 @@ function handleDeleteLetter() {
 }
 
 function handleGuessWord() {
-  console.log('guess word')
   let wordToCheck = guessedWord.join('').toLowerCase()
-  console.log(wordToCheck)
   if (checkWord(wordToCheck)) {
-    console.log('word exists')
     renderGuess()
     guessedWord = []
   } else {
@@ -97,20 +93,16 @@ function handleGuessWord() {
     setTimeout (() => {
       wordRows[currentRow].classList.add('animate__animated', 'animate__shakeX')
     }, 300)
-    console.log('word does not exist')
   }
 }
 
 function renderLetter(letter) {
-  console.log(letter + ' pressed')
   wordRows[currentRow].children[currentLetter].textContent = letter.toUpperCase()
   guessedWord.push(letter.toUpperCase())
   currentLetter += 1
-  console.log(guessedWord)
 }
 
 function renderGuess() {
-  console.log(guessedWord)
   let lettersRemaining = [...secretWord]
   let flipTimeout = 750
   guessedWord.forEach((letter, idx) => {
@@ -122,7 +114,6 @@ function renderGuess() {
       lettersRemaining[idx] = null      
     } 
   })
-  console.log(lettersRemaining)
   guessedWord.forEach((letter, idx) => {
     let guessEl = wordRows[currentRow].children[idx]
     if (lettersRemaining.includes(guessedWord[idx])) {
