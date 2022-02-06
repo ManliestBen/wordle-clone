@@ -19,3 +19,8 @@ let word, guessedLetters
 
 /*-------------------------------- Functions --------------------------------*/
 
+init()
+
+function init() {
+
+}
