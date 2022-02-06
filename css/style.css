@@ -1,9 +1,8 @@
 body {
   background-color: #121213;
   color: white;
-  height: 95vh;
-  width: 95vw;
   display: flex;
+  height: 90vmin;
   font-size: 1.5em;
   flex-direction: column;
   justify-content: space-between;
@@ -12,7 +11,7 @@ body {
 
 div > div {
   border: 1px solid #3a3a3c;
-  font-size: 3vw;
+  font-size: 1.25em;
   width: 2em;
   height: 2em;
   margin: .10em;
@@ -48,7 +47,7 @@ div.row {
 }
 
 section#keys > div > button {
-  font-size: 1.75vw;
+  font-size: 0.75em;
   font-weight: bold;
   width: 2.5em;
   height: 3em;
@@ -95,7 +94,7 @@ section#difficulty > div > button {
   border: 0;
   border-radius: 10%;
   margin: .2em;
-  font-size: 1.9vw;
+  font-size: .6em;
   height: 3em;
 }
 

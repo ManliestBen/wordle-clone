@@ -18,6 +18,7 @@ const gameEl = document.querySelector('main')
 const keyEl = document.querySelector('section#keys')
 const titleEl = document.getElementById('title')
 const messageEl = document.getElementById('message')
+const resetBtn = document.getElementById('reset')
 
 /*----------------------------- Event Listeners -----------------------------*/
 diffEl.addEventListener('click', (evt) => {
@@ -75,6 +76,7 @@ function selectDifficulty(level) {
   keyEl.removeAttribute('hidden')
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
+  resetBtn.removeAttribute('hidden')
   secretWord = getWord(level).toUpperCase().split('')
 }
 
@@ -145,6 +147,7 @@ function renderWin(numTries) {
     diffEl.removeAttribute('hidden')
     messageEl.textContent = `You got it in ${numTries}!  Play again?`
     title.setAttribute('hidden', true)
+    resetBtn.setAttribute('hidden', true)
   }, (6*725))
 }
 
