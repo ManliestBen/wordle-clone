@@ -59,17 +59,35 @@ function selectDifficulty(level) {
 
 function handleDeleteLetter() {
   console.log('delete')
+  // If current guess.length
+    // remove last character
+    // render letter
 }
 
 function handleGuessWord() {
   console.log('guess word')
+  // if current guess length is 5
+  // check word for match
+  // check if word exists
+  // renderWord()
 }
 
 function handleSelectLetter(letter) {
   console.log(letter + ' pressed')
+  // If current guess.length < 5
+    // add character to current word
+    // renderLetter()
 }
 
 
-function render() {
-  
+function renderLetter(letter) {
+  console.log(letter + ' to be rendered')
+  // Change textContent of element to letter
+}
+
+function renderWord() {
+  // Flip the letters and add styling based on status
+    // Letter is in the correct position (right-place)
+    // Letter is in the wrong position (wrong-place)
+    // Letter is not in the word (wrong-letter)
 }
