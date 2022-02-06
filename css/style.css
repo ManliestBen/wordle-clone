@@ -2,6 +2,7 @@ body {
   background-color: #121213;
   color: white;
   height: 95vh;
+  width: 95vw;
   display: flex;
   font-size: 1.5em;
   flex-direction: column;
@@ -11,7 +12,7 @@ body {
 
 div > div {
   border: 1px solid #3a3a3c;
-  font-size: 1.25em;
+  font-size: 3vw;
   width: 2em;
   height: 2em;
   margin: .10em;
@@ -47,15 +48,15 @@ div.row {
 }
 
 button {
-  font-size: .50em;
+  font-size: 1.75vw;
   font-weight: bold;
-  width: 3.5em;
-  height: 4em;
+  width: 2.5em;
+  height: 3em;
   background-color: #828384;
   color: white;
   border: 0;
   border-radius: 10%;
-  margin: .25em;
+  margin: .15em;
 }
 
 #enter {
