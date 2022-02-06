@@ -11,6 +11,7 @@ let secretWord, guessedWord, currentRow, currentLetter
 
 /*------------------------ Cached Element References ------------------------*/
 const inputKeys = document.querySelector('section#keys')
+const keyEls = document.querySelectorAll('div.row.keys > button')
 const wordRows = document.querySelectorAll('div.word')
 const diffEl = document.querySelector('section#difficulty')
 const gameEl = document.querySelector('main')
@@ -75,6 +76,7 @@ function selectDifficulty(level) {
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
   secretWord = getWord(level).toUpperCase().split('')
+  console.log(secretWord)
 }
 
 function handleDeleteLetter() {
@@ -108,7 +110,9 @@ function renderGuess() {
   guessedWord.forEach((letter, idx) => {
     let guessEl = wordRows[currentRow].children[idx]
     if (secretWord[idx] === guessedWord[idx]) {
+      let letterHolder = guessedWord[idx]
       setTimeout(()=> {
+        document.getElementById(letterHolder.toLowerCase()).classList.add('right-place')
         guessEl.classList.add('right-place', 'animate__animated', 'animate__flipInY')
       }, flipTimeout * idx)
       lettersRemaining[idx] = null      
@@ -116,12 +120,15 @@ function renderGuess() {
   })
   guessedWord.forEach((letter, idx) => {
     let guessEl = wordRows[currentRow].children[idx]
+    let letterHolder = guessedWord[idx]
     if (lettersRemaining.includes(guessedWord[idx])) {
       setTimeout(()=> {
+        document.getElementById(letterHolder.toLowerCase()).classList.add('wrong-place')
         guessEl.classList.add('wrong-place', 'animate__animated', 'animate__flipInY')
       }, flipTimeout * idx)
     } else {
       setTimeout(()=> {
+        document.getElementById(letterHolder.toLowerCase()).classList.add('wrong-letter')
         guessEl.classList.add('wrong-letter', 'animate__animated', 'animate__flipInY')
       }, flipTimeout * idx)
     } 
@@ -148,5 +155,8 @@ function resetTiles() {
       row.children[i].textContent = ''
       row.children[i].className = ''
     }
+  })
+  keyEls.forEach(key => {
+    key.className = ''
   })
 }

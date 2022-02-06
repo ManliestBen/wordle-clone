@@ -59,6 +59,21 @@ section#keys > div > button {
   margin: .15em;
 }
 
+section#keys > div > button.wrong-letter {
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
+}
+
+section#keys > div > button.wrong-place {
+  background-color: #b59f3b;
+  border-color: #b59f3b;
+}
+
+section#keys > div > button.right-place {
+  background-color: #538d4e;
+  border-color: #538d4e;
+}
+
 section#keys > div #enter {
   width: 6em;
 }
