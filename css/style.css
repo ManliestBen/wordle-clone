@@ -1,0 +1,28 @@
+body {
+  background-color: #121213;
+  color: white
+}
+
+div > div {
+  border: 1px solid #3a3a3c;
+  width: 2em;
+  height: 2em;
+  margin: .10em;
+}
+
+div.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.wrong-letter {
+  background-color: #3a3a3c;
+}
+
+.wrong-place {
+  background-color: #b59f3b;
+}
+
+.right-place {
+  background-color: #538d4e;
+}
