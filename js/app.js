@@ -76,7 +76,6 @@ function selectDifficulty(level) {
   gameEl.removeAttribute('hidden')
   titleEl.removeAttribute('hidden')
   secretWord = getWord(level).toUpperCase().split('')
-  console.log(secretWord)
 }
 
 function handleDeleteLetter() {
