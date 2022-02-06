@@ -7,7 +7,7 @@ const allowableLetters = "abcdefghijklmnopqrstuvwxyz"
 
 /*---------------------------- Variables (state) ----------------------------*/
 let secretWord, guessedWord, currentRow, currentLetter
-
+let highScores = JSON.parse(localStorage.getItem('wordleScores'))
 
 /*------------------------ Cached Element References ------------------------*/
 const inputKeys = document.querySelector('section#keys')
@@ -59,6 +59,11 @@ document.addEventListener('keydown', (evt) => {
 init()
 
 function init() {
+  if (!highScores) {
+    localStorage.setItem('wordleScores', JSON.stringify({'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, 'X': 0}))
+    highScores = JSON.parse(localStorage.getItem('wordleScores'))
+  }
+  console.log(highScores)
   resetTiles()
   diffEl.removeAttribute('hidden')
   keyEl.setAttribute('hidden', true)
@@ -143,6 +148,8 @@ function renderGuess() {
 }
 
 function renderWin(numTries) {
+  highScores[numTries.toString()]++
+  localStorage.setItem('wordleScores', JSON.stringify(highScores))
   setTimeout(() => {
     diffEl.removeAttribute('hidden')
     messageEl.textContent = `You got it in ${numTries}!  Play again?`
