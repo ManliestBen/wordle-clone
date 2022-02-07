@@ -145,6 +145,15 @@ function renderGuess() {
     currentRow += 1
     currentLetter = 0
   }
+  if (currentRow > 6) {
+    highScores['X']++
+    localStorage.setItem('wordleScores', JSON.stringify(highScores))
+    renderLoss()
+  }
+} 
+
+function renderLoss() {
+  // Modal?
 }
 
 function renderWin(numTries) {
