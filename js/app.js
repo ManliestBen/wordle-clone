@@ -144,16 +144,22 @@ function renderGuess() {
   } else {
     currentRow += 1
     currentLetter = 0
-  }
-  if (currentRow > 6) {
-    highScores['X']++
-    localStorage.setItem('wordleScores', JSON.stringify(highScores))
-    renderLoss()
+    if (currentRow === 6) {
+      highScores['X']++
+      localStorage.setItem('wordleScores', JSON.stringify(highScores))
+      renderLoss()
+    }
   }
 } 
 
 function renderLoss() {
-  // Modal?
+  setTimeout(() => {
+    console.log(secretWord)
+    diffEl.removeAttribute('hidden')
+    messageEl.textContent = `You didn't find ${secretWord.join("")}!  Play again?`
+    title.setAttribute('hidden', true)
+    resetBtn.setAttribute('hidden', true)
+  }, (6*725))
 }
 
 function renderWin(numTries) {
